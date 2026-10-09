@@ -1,0 +1,7 @@
+-r requirements.txt
+pytest>=8.0
+# compile-checks the generated YARA rules in tests
+yara-python>=4.5
+# optional - OCR for scanned PDF uploads (also needs the Tesseract binary)
+# pytesseract>=0.3
+# pillow>=10

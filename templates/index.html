@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GPON Malware Framework</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">◈</span>
+    <div>
+      <h1>GPON Malware Framework Generator</h1>
+      <p>Turns completed static + dynamic analysis into a response &amp; detection framework. Never executes samples.</p>
+    </div>
+  </div>
+  <div class="top-actions">
+    <button id="btn-md" class="ghost" disabled>Export Markdown</button>
+    <button id="btn-json" class="ghost" disabled>Export JSON</button>
+    <button id="btn-print" class="ghost" disabled>Print / PDF</button>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" aria-label="Samples">
+    <h2 id="samples-heading">Analysed samples</h2>
+    <ul id="sample-list"></ul>
+    <button id="btn-new" class="side-btn">+ New analysis</button>
+    <button id="btn-campaign" class="side-btn accent">Campaign view</button>
+    <div id="toc" class="toc" hidden>
+      <h2>Framework</h2>
+      <ol>
+        <li><a href="#s1">Sample identity</a></li>
+        <li><a href="#s2">Infection vector</a></li>
+        <li><a href="#s3">Static findings</a></li>
+        <li><a href="#s4">Dynamic findings</a></li>
+        <li><a href="#s5">IOC pack</a></li>
+        <li><a href="#s6">ATT&amp;CK mapping</a></li>
+        <li><a href="#s7">Detection package</a></li>
+        <li><a href="#s8">Operator framework</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main>
+    <section id="input-panel" class="card">
+      <div class="card-head">
+        <h2 id="input-title">Analysis input</h2>
+        <button id="btn-toggle-input" class="link">Hide input</button>
+      </div>
+      <form id="gen-form">
+        <div class="meta-grid">
+          <label>Sample name<input name="name" placeholder="e.g. Sample 3"></label>
+          <label>SHA256<input name="sha256" placeholder="optional - detected from notes"></label>
+          <label>Family guess<input name="family" placeholder="Mirai / Gafgyt / Mozi / unknown"></label>
+          <label>Architecture<input name="arch" placeholder="MIPS / ARM / PowerPC"></label>
+          <label>C2 (IP/domain)<input name="c2" placeholder="optional"></label>
+          <label>Exploit URL / URI<input name="exploit_url" placeholder="e.g. POST /GponForm/diag_Form?images/"></label>
+        </div>
+        <div class="text-grid">
+          <label>Static analysis
+            <textarea name="static" rows="12" placeholder="Paste file/readelf output, strings extracts, symbol lists, YARA hits, notes..."></textarea>
+            <span class="file-row"><input type="file" name="static_files" multiple accept=".txt,.log,.md,.csv,.json,.pdf,.yar,.yara"> <small>txt · json · csv · pdf</small></span>
+          </label>
+          <label>Dynamic analysis
+            <textarea name="dynamic" rows="12" placeholder="Paste sandbox notes, tcpdump results, any.run / Joe Sandbox IOC exports..."></textarea>
+            <span class="file-row"><input type="file" name="dynamic_files" multiple accept=".txt,.log,.md,.csv,.json,.pdf"> <small>any.run IOC JSON supported</small></span>
+          </label>
+        </div>
+        <div class="form-foot">
+          <button type="submit" class="primary" id="btn-generate">Generate framework</button>
+          <span id="status" role="status"></span>
+        </div>
+      </form>
+    </section>
+
+    <div id="warnings"></div>
+    <article id="output"></article>
+  </main>
+</div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
